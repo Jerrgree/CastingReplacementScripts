@@ -32,9 +32,9 @@ function constructFarmScriptList()
 		ianFarmScript, chunFarmScript, ralucaFarmScript, gioeleFarmScript, eleeshaFarmScript, terrenceFarmScript, derekFarmScript, andieFarmScript];
 }
 
-function replaceScripts(shipType)
+function replaceScripts()
 {
-	//shipType = prompt("Please enter from the following options:\n normal \nfarm", "normal");
+	shipType = prompt("Please enter from the following options:\n normal \nfarm", "normal");
 	playerScripts = $('.rpbloc');
 
 	playerScripts.each((i) =>
@@ -65,4 +65,6 @@ function replaceScripts(shipType)
 
 var farmShipDictonary = constructFarmScriptList();
 
-replaceScripts("normal");
+var optionsDiv = $('.option_container')[1];
+var button = $('<input type="button" value="Change The Scripts" onclick=replaceScripts() class="tid_button" />');
+button.appendTo(optionsDiv);
