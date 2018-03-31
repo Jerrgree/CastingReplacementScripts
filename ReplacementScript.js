@@ -1,4 +1,4 @@
-const normalScript = "*This Is A*: //Normal Ship// \n\nThe following additional rules are in effect: \n//- Day 1 Rampage Ban// 'n//- Day 1 Apron Ban//";
+const normalScript = "*This Is A*: //Normal Ship// \n\nThe following additional rules are in effect: \n//- Day 1 Rampage Ban// \n//- Day 1 Apron Ban//";
 
 function constructFarmScriptList()
 {
@@ -32,20 +32,19 @@ function constructFarmScriptList()
 		ianFarmScript, chunFarmScript, ralucaFarmScript, gioeleFarmScript, eleeshaFarmScript, terrenceFarmScript, derekFarmScript, andieFarmScript];
 }
 
-function replaceScripts()
+function replaceScripts(shipType)
 {
-	shipType = prompt("Please enter from the following options:\n normal \nfarm", "normal");
 	playerScripts = $('.rpbloc');
 
 	playerScripts.each((i) =>
 	{
-		if (shipType.toLowerCase() === "normal")
+		if (shipType === "normal")
 		{
 			playerScripts[i].children[4].innerHTML = normalScript;
 			playerScripts[i].children[7].children[0].children[0].children[0].click();
 		}
 
-		else if (shipType.toLowerCase() === "farm")
+		else if (shipType === "farm")
 		{
 			playerScripts[i].children[4].innerHTML = farmShipDictonary[i];
 			playerScripts[i].children[7].children[0].children[0].children[0].click();
@@ -66,5 +65,30 @@ function replaceScripts()
 var farmShipDictonary = constructFarmScriptList();
 
 var optionsDiv = $('.option_container')[1];
-var button = $('<input type="button" value="Change The Scripts" onclick=replaceScripts() class="tid_button" />');
+var button = $('<input type="button" value="Change The Scripts" onclick=promptUser() class="tid_button" />');
 button.appendTo(optionsDiv);
+
+function promptUser()
+{
+	$('#dialog').dialog({
+	dialogClass: 'customScript',
+	buttons: [ {
+		text: 'Normal',
+		click: function() {
+			replaceScripts('normal');
+			$(this).dialog('close');
+		}
+		}, {
+			text: 'Farm',
+			click: function() {
+				replaceScripts('farm');
+				$(this).dialog('close');
+			}
+		}]
+	});
+}
+
+
+var node = document.createElement('style');
+node.innerHTML = '.popbottom { display: none; }';
+document.body.appendChild(node);
